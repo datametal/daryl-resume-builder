@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "commit": "cz",
+    "cz": "cz",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
