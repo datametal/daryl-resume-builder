@@ -16,6 +16,10 @@
     "release:major": "standard-version --release-as major"
   },
   "dependencies": {
+    "@trigger.dev/nextjs": "^2.3.18",
+    "@trigger.dev/openai": "^2.3.18",
+    "@trigger.dev/react": "^2.3.18",
+    "@trigger.dev/sdk": "^2.3.18",
     "axios": "^1.6.7",
     "geist": "^1.2.2",
     "next": "14.1.0",
@@ -57,5 +61,8 @@
     "*.{md,json}": [
       "prettier -w"
     ]
+  },
+  "trigger.dev": {
+    "endpointId": "nextjsblogchatgpt-GJcp"
   }
 }
