@@ -18,12 +18,13 @@ const Companies = () => {
       workedYears: '',
       technologies: '',
     })
-  }, [append])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [companies])
 
   useEffect(() => {
     addCompany()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [companies])
+  }, [])
 
   return (
     <div className='mb-4'>
