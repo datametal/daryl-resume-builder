@@ -11,10 +11,10 @@ module.exports = {
         args: 'after-used',
         caughtErrors: 'none',
         ignoreRestSiblings: true,
-        vars: 'all'
-      }
+        vars: 'all',
+      },
     ],
     'prefer-const': 'error',
-    'react-hooks/exhaustive-deps': 'error'
-  }
+    'react-hooks/exhaustive-deps': 'error',
+  },
 }
