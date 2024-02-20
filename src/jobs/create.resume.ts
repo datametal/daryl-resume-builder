@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { prompts } from '@/utils/openai'
 // eslint-disable-next-line no-unused-vars
 import { TCompany, TUserDetails } from '@/components/Home'
+import { createResume } from '@/utils/resume'
 
 // eslint-disable-next-line no-unused-vars
 const companyDetails = (companies: TCompany[]) => {
@@ -40,7 +41,6 @@ client.defineJob({
   }),
   // eslint-disable-next-line no-unused-vars
   run: async (payload, io, ctx) => {
-    // eslint-disable-next-line no-unused-vars
     const texts = await io.runTask('openai-task', async () => {
       return Promise.all([
         await generateResumeText(
@@ -69,5 +69,22 @@ client.defineJob({
         ),
       ])
     })
+
+    console.log('passed chatgpt')
+
+    // eslint-disable-next-line no-unused-vars
+    const pdf = await io.runTask('convert-to-html', async () => {
+      const resume = createResume({
+        userDetails: payload,
+        picture: payload.photo,
+        profileSummary: texts[0],
+        jobResponsibilities: texts[1],
+        workHistory: texts[2],
+      })
+
+      return { final: resume.split(',')[1] }
+    })
+
+    console.log('converted to pdf')
   },
 })
