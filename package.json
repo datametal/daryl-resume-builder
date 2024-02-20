@@ -19,6 +19,7 @@
     "@trigger.dev/nextjs": "^2.3.18",
     "@trigger.dev/openai": "^2.3.18",
     "@trigger.dev/react": "^2.3.18",
+    "@trigger.dev/resend": "^2.3.18",
     "@trigger.dev/sdk": "^2.3.18",
     "@types/jspdf": "^2.0.0",
     "axios": "^1.6.7",

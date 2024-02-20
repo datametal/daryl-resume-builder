@@ -1,10 +1,17 @@
 import { client } from '@/trigger'
 import { eventTrigger } from '@trigger.dev/sdk'
 import { z } from 'zod'
-import { prompts } from '@/utils/openai'
+// eslint-disable-next-line no-unused-vars
+import { prompt } from '@/utils/openai'
 // eslint-disable-next-line no-unused-vars
 import { TCompany, TUserDetails } from '@/components/Home'
 import { createResume } from '@/utils/resume'
+import { Resend } from '@trigger.dev/resend'
+
+const resend = new Resend({
+  id: 'resend',
+  apiKey: process.env.RESEND_API_KEY!,
+})
 
 // eslint-disable-next-line no-unused-vars
 const companyDetails = (companies: TCompany[]) => {
@@ -72,7 +79,6 @@ client.defineJob({
 
     console.log('passed chatgpt')
 
-    // eslint-disable-next-line no-unused-vars
     const pdf = await io.runTask('convert-to-html', async () => {
       const resume = createResume({
         userDetails: payload,
@@ -86,5 +92,21 @@ client.defineJob({
     })
 
     console.log('converted to pdf')
+
+    await io.resend.sendEmail('send-email', {
+      to: payload.email,
+      subject: 'Resume',
+      html: 'Your resume is attached!',
+      attachments: [
+        {
+          filename: 'resume.pdf',
+          content: Buffer.from(pdf.final, 'base64'),
+          contentType: 'application/pdf',
+        },
+      ],
+      from: 'Daryl <daryl@datametal.io>',
+    })
+
+    console.log('Sent email')
   },
 })
